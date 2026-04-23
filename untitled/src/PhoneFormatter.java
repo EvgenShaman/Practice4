@@ -33,6 +33,28 @@ class PhoneFormatter {
     }
 
     /**
+     * Ищет в тексте все телефонные номера и заменяет их на отформатированные
+     */
+    private static String replacePhoneNumbers(String text) {
+        // Регулярное выражение для поиска номеров:
+        //   (?:+7|7|8) – код страны (может быть с +)
+        //   затем любые разделители (\s, -, ., (, ))
+        //   затем 10 цифр, между которыми тоже могут быть разделители
+        String regex = "(?:(?:\\+?7|8)[\\s\\-\\(\\)\\.]*)(?:\\d[\\s\\-\\(\\)\\.]*){10}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        StringBuffer result = new StringBuffer();
+        while (matcher.find()) {
+            String phoneRaw = matcher.group();
+            String formatted = formatPhoneNumber(phoneRaw);
+            matcher.appendReplacement(result, Matcher.quoteReplacement(formatted));
+        }
+        matcher.appendTail(result);
+        return result.toString();
+    }
+
+    /**
      * Преобразует сырой номер (например "+7 (999) 000-11-11" или "8-912-345-67-89")
      * в единый формат +1 (XXX) XXX-XX-XX
      */
