@@ -1,13 +1,23 @@
 package main.java.com.example;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class PhoneFormatterTest {
+
     @Test
-    public void testFormatPhoneNumber() {
-        String rawNumber = "+7 (999) 000-11-22";
-        // Вызов нашего метода из основного класса
-        String formatted = PhoneFormatter.formatPhoneNumber(rawNumber);
-        // Проверка, что метод отработал как ожидается
-        Assertions.assertEquals("+1 (999) 000-11-22", formatted);
+    public void testRussianNumberConversion() {
+        String input = "+7 (999) 000-11-22";
+        String expected = "+1 (999) 000-11-22";
+        String actual = PhoneFormatter.formatPhoneNumber(input);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testNumberWithDifferentSeparators() {
+        String input = "8-912-345-67-89";
+        String expected = "+1 (912) 345-67-89";
+        String actual = PhoneFormatter.formatPhoneNumber(input);
+        assertEquals(expected, actual);
     }
 }
