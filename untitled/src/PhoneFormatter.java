@@ -20,4 +20,37 @@ class PhoneFormatter {
             return null;
         }
     }
+
+    /**
+     * Записывает строку в файл
+     */
+    private static void writeFile(String filename, String content) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            bw.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Преобразует сырой номер (например "+7 (999) 000-11-11" или "8-912-345-67-89")
+     * в единый формат +1 (XXX) XXX-XX-XX
+     */
+    private static String formatPhoneNumber(String raw) {
+        // Извлекаем все цифры из строки
+        String digits = raw.replaceAll("\\D", "");
+        if (digits.length() < 10) {
+            // Недостаточно цифр – возвращаем как есть (ошибка)
+            return raw;
+        }
+
+        // Берём последние 10 цифр (локальный номер)
+        String local = digits.substring(digits.length() - 10);
+        String part1 = local.substring(0, 3);
+        String part2 = local.substring(3, 6);
+        String part3 = local.substring(6, 8);
+        String part4 = local.substring(8, 10);
+
+        return String.format("+1 (%s) %s-%s-%s", part1, part2, part3, part4);
+    }
 }
