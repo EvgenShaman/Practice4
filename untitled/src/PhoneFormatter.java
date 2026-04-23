@@ -29,6 +29,7 @@ class PhoneFormatter {
             while ((line = br.readLine()) != null) {
                 sb.append(line).append("\n");
             }
+
             return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +56,7 @@ class PhoneFormatter {
         //   (?:+7|7|8) – код страны (может быть с +)
         //   затем любые разделители (\s, -, ., (, ))
         //   затем 10 цифр, между которыми тоже могут быть разделители
-        String regex = "(?:(?:\\+?7|8)[\\s\\-\\(\\)\\.]*)(?:\\d[\\s\\-\\(\\)\\.]*){10}";
+        String regex = "(?:(?:\\+?7|8)[\\s\\-\\(\\)\\.])(?:\\d[\\s\\-\\(\\)\\.]){10}";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
 
