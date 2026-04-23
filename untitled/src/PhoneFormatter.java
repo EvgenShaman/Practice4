@@ -4,9 +4,24 @@ import java.util.regex.*;
 class PhoneFormatter {
 
     public static void main(String[] args) {
+        String inputFile  = "input.txt";
+        String outputFile = "output.txt";
 
+        String text = readFile(inputFile);
+        if (text == null) {
+            System.err.println("Не удалось прочитать файл: " + inputFile);
+            return;
+        }
+
+        String formattedText = replacePhoneNumbers(text);
+        writeFile(outputFile, formattedText);
+
+        System.out.println("Обработка завершена. Результат в " + outputFile);
     }
 
+    /**
+     * Читает весь файл в строку
+     */
     private static String readFile(String filename) {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
