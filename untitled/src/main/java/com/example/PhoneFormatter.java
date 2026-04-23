@@ -1,3 +1,5 @@
+package main.java.com.example;
+
 import java.io.*;
 import java.util.regex.*;
 
@@ -56,7 +58,7 @@ class PhoneFormatter {
         //   (?:+7|7|8) – код страны (может быть с +)
         //   затем любые разделители (\s, -, ., (, ))
         //   затем 10 цифр, между которыми тоже могут быть разделители
-        String regex = "(?:(?:\\+?7|8)[\\s\\-\\(\\)\\.])(?:\\d[\\s\\-\\(\\)\\.]){10}";
+        String regex = "(?:(?:\\+?7|8)[\\s\\-\\(\\)\\.]*)(?:\\d[\\s\\-\\(\\)\\.]*){10}";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
 
@@ -64,7 +66,7 @@ class PhoneFormatter {
         while (matcher.find()) {
             String phoneRaw = matcher.group();
             String formatted = formatPhoneNumber(phoneRaw);
-            matcher.appendReplacement(result, Matcher.quoteReplacement(formatted));
+            matcher.appendReplacement(result, Matcher.quoteReplacement(formatted)+"\n");
         }
         matcher.appendTail(result);
         return result.toString();
