@@ -24,7 +24,7 @@ class PhoneFormatter {
     /**
      * Читает весь файл в строку
      */
-    private static String readFile(String filename) {
+    public static String readFile(String filename) {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -42,7 +42,7 @@ class PhoneFormatter {
     /**
      * Записывает строку в файл
      */
-    private static void writeFile(String filename, String content) {
+    public static void writeFile(String filename, String content) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             bw.write(content);
         } catch (IOException e) {
@@ -53,7 +53,7 @@ class PhoneFormatter {
     /**
      * Ищет в тексте все телефонные номера и заменяет их на отформатированные
      */
-    private static String replacePhoneNumbers(String text) {
+    public static String replacePhoneNumbers(String text) {
         // Регулярное выражение для поиска номеров:
         //   (?:+7|7|8) – код страны (может быть с +)
         //   затем любые разделители (\s, -, ., (, ))
@@ -76,7 +76,7 @@ class PhoneFormatter {
      * Преобразует сырой номер (например "+7 (999) 000-11-11" или "8-912-345-67-89")
      * в единый формат +1 (XXX) XXX-XX-XX
      */
-    private static String formatPhoneNumber(String raw) {
+    public static String formatPhoneNumber(String raw) {
         // Извлекаем все цифры из строки
         String digits = raw.replaceAll("\\D", "");
         if (digits.length() < 10) {
