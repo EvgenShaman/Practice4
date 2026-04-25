@@ -1,4 +1,4 @@
-package main.java.com.example;
+package com.example;
 
 import java.io.*;
 import java.util.regex.*;
@@ -76,7 +76,7 @@ class PhoneFormatter {
      * Преобразует сырой номер (например "+7 (999) 000-11-11" или "8-912-345-67-89")
      * в единый формат +1 (XXX) XXX-XX-XX
      */
-    private static String formatPhoneNumber(String raw) {
+    protected static String formatPhoneNumber(String raw) {
         // Извлекаем все цифры из строки
         String digits = raw.replaceAll("\\D", "");
         if (digits.length() < 10) {
